@@ -7,7 +7,7 @@ namespace SlickView
     public class SlickView
     {
         public static           SlickViewElementsEnumerator.InternalSlickViewState ilvState     = new SlickViewElementsEnumerator.InternalSlickViewState();
-        private static readonly int                                                listViewHash = "ListView".GetHashCode();
+        private static readonly int                                                slickViewHash = "SlickView".GetHashCode();
 
         public static SlickViewElementsEnumerator ListView(SlickViewState state, GUIStyle style, params GUILayoutOption[] options)
         {
@@ -25,7 +25,7 @@ namespace SlickView
 
         public static SlickViewElementsEnumerator DoListView(Rect pos, SlickViewState state, int[] colWidths, string dragTitle)
         {
-            var id = GUIUtility.GetControlID(listViewHash, FocusType.Passive);
+            var id = GUIUtility.GetControlID(slickViewHash, FocusType.Passive);
             state.ID = id;
 
             state.selectionChanged = false;
