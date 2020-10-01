@@ -1,6 +1,4 @@
 using System;
-using UnityEditor.Experimental.TerrainAPI;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 namespace SlickView
