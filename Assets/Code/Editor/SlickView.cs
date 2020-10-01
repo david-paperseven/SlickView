@@ -6,8 +6,6 @@ namespace SlickView
 {
     public class SlickView
     {
-        private static readonly int[] dummyWidths = new int[1];
-
         public static           SlickViewElementsEnumerator.InternalSlickViewState ilvState     = new SlickViewElementsEnumerator.InternalSlickViewState();
         private static readonly int                                                listViewHash = "ListView".GetHashCode();
 
@@ -32,13 +30,9 @@ namespace SlickView
 
             state.selectionChanged = false;
             Rect vRect;
-
-            if (state.visRect.x < 0 || state.visRect.y < 0)
-                vRect = pos;
-            else
-                vRect = pos.y < 0
-                    ? new Rect(0, 0, state.visRect.width, state.visRect.height)
-                    : new Rect(0, state.scrollPos.y, state.visRect.width, state.visRect.height); // check if this is custom scroll
+            vRect = pos.y < 0
+                ? new Rect(0, 0, state.visRect.width, state.visRect.height)
+                : new Rect(0, state.scrollPos.y, state.visRect.width, state.visRect.height); // check if this is custom scroll
 
             if (vRect.width <= 0)
                 vRect.width = 1;
@@ -48,13 +42,7 @@ namespace SlickView
             var invisibleRows = (int) ((-pos.y + vRect.yMin) / state.rowHeight);
             var endRow        = invisibleRows + (int) Math.Ceiling(((vRect.yMin - pos.y) % state.rowHeight + vRect.height) / state.rowHeight) - 1;
 
-            if (colWidths == null)
-            {
-                dummyWidths[0] = (int) vRect.width;
-                colWidths      = dummyWidths;
-            }
-
-            ilvState.invisibleRows = invisibleRows;
+           ilvState.invisibleRows = invisibleRows;
             ilvState.endRow        = endRow;
             ilvState.rectHeight    = (int) vRect.height;
             ilvState.state         = state;
@@ -65,7 +53,7 @@ namespace SlickView
             if (endRow >= state.totalRows)
                 endRow = state.totalRows - 1;
 
-            return new SlickViewElementsEnumerator(ilvState, colWidths, invisibleRows, endRow, dragTitle, new Rect(0, invisibleRows * state.rowHeight, pos.width, state.rowHeight));
+            return new SlickViewElementsEnumerator(ilvState, invisibleRows, endRow, dragTitle, new Rect(0, invisibleRows * state.rowHeight, pos.width, state.rowHeight));
         }
     }
 }

@@ -18,8 +18,6 @@ namespace SlickView
             public SlickViewState state;
         }
 
-        private readonly int[] colWidths;
-
         private readonly InternalSlickViewState ilvState;
         private readonly int                    xTo;
         private readonly int                    yFrom;
@@ -33,10 +31,9 @@ namespace SlickView
         private int  xPos = -1;
         private int  yPos = -1;
 
-        public SlickViewElementsEnumerator(InternalSlickViewState ilvState, int[] colWidths, int yFrom, int yTo, string dragTitle, Rect firstRect)
+        public SlickViewElementsEnumerator(InternalSlickViewState ilvState, int yFrom, int yTo, string dragTitle, Rect firstRect)
         {
-            this.colWidths = colWidths;
-            xTo            = colWidths.Length - 1;
+            xTo            = 0;
             this.yFrom     = yFrom;
             this.yTo       = yTo;
             this.firstRect = firstRect;
@@ -67,20 +64,12 @@ namespace SlickView
                 xPos = 0;
                 yPos++;
 
-                rect.x     = firstRect.x;
-                rect.width = colWidths[0];
+                rect.x = firstRect.x;
 
                 if (yPos > yTo)
                     quiting = true;
                 else // move vertically
                     rect.y += rect.height;
-            }
-            else // move horizontally
-            {
-                if (xPos >= 1)
-                    rect.x += colWidths[xPos - 1];
-
-                rect.width = colWidths[xPos];
             }
 
             element.row      = yPos;
@@ -92,9 +81,6 @@ namespace SlickView
 
             if (quiting)
             {
-                if (SlickViewKeyboard(ilvState, colWidths.Length))
-                    ilvState.state.selectionChanged = true;
-
                 if (Event.current.GetTypeForControl(ilvState.state.ID) == EventType.MouseUp) GUIUtility.hotControl = 0;
 
 
@@ -126,20 +112,6 @@ namespace SlickView
                 }
 
             return false;
-        }
-
-        public static bool SlickViewKeyboard(InternalSlickViewState ilvState, int totalCols)
-        {
-            var totalRows = ilvState.state.totalRows;
-
-            if (Event.current.type != EventType.KeyDown || totalRows == 0)
-                return false;
-
-            if (GUIUtility.keyboardControl != ilvState.state.ID ||
-                Event.current.GetTypeForControl(ilvState.state.ID) != EventType.KeyDown)
-                return false;
-
-            return SendKey(ilvState, Event.current.keyCode, totalCols);
         }
 
         public static bool SendKey(InternalSlickViewState ilvState, KeyCode keyCode, int totalCols)
