@@ -21,28 +21,34 @@ namespace SlickView
         }
 
 
-        public bool Draw(Rect rect, int totalRows, GUIStyle style)
+        /// <summary>
+        /// Draw
+        /// Called during the OnGUI of the client code
+        /// for SlickView to render its view
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <param name="totalRows"></param>
+        /// <param name="style"></param>
+        public void Draw(Rect rect, int totalRows, GUIStyle style)
         {
             Event e = Event.current;
 
-            bool selectionChanged = false;
             _slickViewState.visRect   = rect;
             _slickViewState.totalRows = totalRows;
 
+            // iterate through all the rows that are _visible_ in the view 
+            // and call the draw delegate
             foreach (SlickViewElement el in SlickView.ListView(_slickViewState, style))
             {
                 if (e.type == EventType.MouseDown && e.button == 0 && el.position.Contains(e.mousePosition))
                 {
-                    _selectedRow     = _slickViewState.row;
-                    selectionChanged = true;
+                    _selectedRow = _slickViewState.row;
                 }
                 else if (e.type == EventType.Repaint)
                 {
                     _draw(el.position, el.row, _selectedRow == el.row);
                 }
             }
-
-            return selectionChanged;
         }
     }
 }

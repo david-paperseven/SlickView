@@ -68,3 +68,4 @@ Instead of iterating over the entire list of elements Slick view calculates whic
 |:--:| 
 | *Screenshot of the demo window in SlickView with 10,000 textures* |
 
+To bring up this demo window select Slick View -> Open Demo Window
