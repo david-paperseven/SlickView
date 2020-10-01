@@ -63,4 +63,8 @@ Instead of iterating over the entire list of elements Slick view calculates whic
 
 ---
 
-![Screenshot](ScreenshotImage.png)
+
+| ![Screenshot](ScreenshotImage.png) | 
+|:--:| 
+| *Screenshot of the demo window in SlickView with 10,000 textures* |
+
