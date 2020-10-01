@@ -60,3 +60,7 @@ Instead of iterating over the entire list of elements Slick view calculates whic
 | 1,000          | < 10       | 0.1            |
 | 1,000          | < 10       | 0.1            |
 | 10,000         | < 10       | 0.1            |
+
+---
+
+![Screenshot](ScreenshotImage.png)
