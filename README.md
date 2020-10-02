@@ -1,3 +1,9 @@
+    
+
+![SlickView](https://img.shields.io/badge/License-MIT-green)
+![SlickView](https://img.shields.io/badge/Unity-Editor-green)
+![SlickView](https://img.shields.io/badge/Unity-2018%2B-blue)
+
 # SlickView
 
 Unity Editor's built-in automatically laid out ScrollView GUI degrades in performance proportionally to how many elements are being scrolled through. 
